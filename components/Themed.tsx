@@ -44,7 +44,7 @@ export function View(props: ViewProps) {
 
 export function TextInput(props: TextInputProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
-  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
+  const backgroundColor = useThemeColor({ light: lightColor, dark: lightColor }, 'background');
   const borderColor = useThemeColor({ light: lightColor, dark: darkColor }, 'border');
   const textColor = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
 

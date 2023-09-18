@@ -1,65 +1,57 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { Text, View } from './Themed';
+import { StyleSheet } from 'react-native';
+import { View } from './Themed';
 import Button from './Button';
-import PasswordLengthInput from './PasswordLengthInput';
+import { DataState } from '../types/types';
 
-const Settings = () => {
-  const [numbers, setNumbers] = useState(false);
-  const [symbols, setSymbols] = useState(false);
-  const [capitalize, setCapitalize] = useState(false);
-  const [uppercase, setUppercase] = useState(false);
-  const [lowercase, setLowercase] = useState(false);
-
+type SettingsProps = {
+  data: DataState;
+  dataHandler: (key: keyof DataState, value: boolean) => void;
+};
+const Settings: React.FC<SettingsProps> = ({ data, dataHandler }) => {
   const handleNumbers = () => {
-    setNumbers(!numbers);
+    dataHandler('numbers', !data.numbers);
   };
 
   const handleSymbols = () => {
-    setSymbols(!symbols);
+    dataHandler('symbols', !data.symbols);
   };
 
   const handleCapitalize = () => {
-    setCapitalize(!capitalize);
-    setUppercase(false);
-    setLowercase(false);
+    dataHandler('capitalize', !data.capitalize);
+    dataHandler('uppercase', false);
+    dataHandler('lowercase', false);
   };
 
   const handleUppercase = () => {
-    setUppercase(!uppercase);
-    setCapitalize(false);
-    setLowercase(false);
+    dataHandler('uppercase', !data.uppercase);
+    dataHandler('capitalize', false);
+    dataHandler('lowercase', false);
   };
 
   const handleLowercase = () => {
-    setLowercase(!lowercase);
-    setCapitalize(false);
-    setUppercase(false);
+    dataHandler('lowercase', !data.lowercase);
+    dataHandler('capitalize', false);
+    dataHandler('uppercase', false);
   };
   return (
     <View>
-      <Text style={styles.subTitle}>Settings</Text>
-      <PasswordLengthInput />
       <View style={styles.double}>
-        <Button title='Numbers' containerStyle={styles.button} onPress={() => handleNumbers()} isClicked={numbers === true ? true : false} />
-        <Button title='Symbols' containerStyle={styles.button} onPress={() => handleSymbols()} isClicked={symbols === true ? true : false} />
+        <Button title='Numbers' containerStyle={styles.button} onPress={handleNumbers} isClicked={data.numbers} />
+        <Button title='Symbols' containerStyle={styles.button} onPress={handleSymbols} isClicked={data.symbols} />
       </View>
       <View style={styles.single}>
-        <Button title='Capitalize' containerStyle={styles.button} onPress={() => handleCapitalize()} isClicked={capitalize === true ? true : false} />
+        <Button title='Capitalize' containerStyle={styles.button} onPress={handleCapitalize} isClicked={data.capitalize} />
       </View>
       <View style={styles.double}>
-        <Button title='Uppercase' containerStyle={styles.button} onPress={() => handleUppercase()} isClicked={uppercase === true ? true : false} />
-        <Button title='Lowercase' containerStyle={styles.button} onPress={() => handleLowercase()} isClicked={lowercase === true ? true : false} />
+        <Button title='Uppercase' containerStyle={styles.button} onPress={handleUppercase} isClicked={data.uppercase} />
+        <Button title='Lowercase' containerStyle={styles.button} onPress={handleLowercase} isClicked={data.lowercase} />
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  subTitle: {
-    fontSize: 20,
-    fontWeight: '500',
-  },
   double: {
     marginVertical: 10,
     display: 'flex',

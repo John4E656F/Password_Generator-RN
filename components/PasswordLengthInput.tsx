@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from './Themed';
+import { DataState } from '../types/types';
 
-const PasswordLengthInput = () => {
-  const [passwordLength, setPasswordLength] = useState(8); // Initial password length as a string
+type PasswordLengthInputProps = {
+  passwordLength: number;
+  dataHandler: (key: keyof DataState, value: any) => void;
+};
 
+const PasswordLengthInput: React.FC<PasswordLengthInputProps> = ({ passwordLength, dataHandler }) => {
   const increasePasswordLength = () => {
-    if (passwordLength < 20) {
-      setPasswordLength(passwordLength + 1);
+    if (passwordLength < 10) {
+      const newLength = passwordLength + 1;
+      dataHandler('PasswordLengthInput', newLength);
     }
   };
 
   const decreasePasswordLength = () => {
-    if (passwordLength > 8) {
-      setPasswordLength(passwordLength - 1);
+    if (passwordLength > 3) {
+      const newLength = passwordLength - 1;
+      dataHandler('PasswordLengthInput', newLength);
     }
   };
 

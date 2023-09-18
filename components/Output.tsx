@@ -2,7 +2,11 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Text, View } from './Themed';
 
-export default function Output() {
+interface OutputProps {
+  generatedPassword: string;
+}
+
+const Output: React.FC<OutputProps> = ({ generatedPassword }) => {
   return (
     <View
       style={{
@@ -11,10 +15,10 @@ export default function Output() {
       lightColor='black'
       darkColor='white'
     >
-      <Text>Hello World</Text>
+      <Text>{generatedPassword}</Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   outputContainer: {
@@ -25,3 +29,5 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
+
+export default Output;
